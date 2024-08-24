@@ -3,7 +3,7 @@
 use bevy::prelude::*;
 
 use super::player::SpawnPlayer;
-
+use super::world::SpawnWorld;
 pub(super) fn plugin(app: &mut App) {
     app.observe(spawn_level);
 }

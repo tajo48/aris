@@ -9,7 +9,7 @@ use bevy::{
     audio::{AudioPlugin, Volume},
     prelude::*,
 };
-
+use bevy_psx::{camera::PsxCamera, material::PsxMaterial, PsxPlugin};
 pub struct AppPlugin;
 
 impl Plugin for AppPlugin {
@@ -52,6 +52,8 @@ impl Plugin for AppPlugin {
                 }),
         );
 
+        app.add_plugins(PsxPlugin);
+        // app.insert_resource(Msaa::Off);
         // Add other plugins.
         app.add_plugins((game::plugin, screen::plugin, ui::plugin));
 
@@ -75,15 +77,15 @@ enum AppSet {
 }
 
 fn spawn_camera(mut commands: Commands) {
+    // commands.spawn((Camera2dBundle::default(), IsDefaultUiCamera));
     commands.spawn((
         Name::new("Camera"),
-        Camera2dBundle::default(),
+        PsxCamera::default(),
         // Render all UI to this camera.
         // Not strictly necessary since we only use one camera,
         // but if we don't use this component, our UI will disappear as soon
         // as we add another camera. This includes indirect ways of adding cameras like using
         // [ui node outlines](https://bevyengine.org/news/bevy-0-14/#ui-node-outline-gizmos)
         // for debugging. So it's good to have this here for future-proofing.
-        IsDefaultUiCamera,
     ));
 }
